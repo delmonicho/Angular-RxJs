@@ -1,0 +1,4 @@
+combineLatest
+- cerates an observanle whose values are defined 
+    + using the latest vlues from each input Observable
+    + combineLatest([a$,b$,c$])

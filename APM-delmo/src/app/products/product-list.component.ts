@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { BehaviorSubject, combineLatest, EMPTY, Subject } from 'rxjs';
-import { catchError, map, startWith } from 'rxjs/operators';
+import { catchError, filter, map, startWith } from 'rxjs/operators';
 import { ProductCategoryService } from '../product-categories/product-category.service';
 
 import { ProductService } from './product.service';
@@ -44,7 +44,14 @@ export class ProductListComponent{
       })
     );
 
-  
+  vm$ = combineLatest([
+    this.products$,
+    this.categories$
+  ])
+    .pipe(
+      map(([products, categories]) =>
+        ({ products, categories }))
+    );
 
   constructor(private productService: ProductService,
               private productCategoryService: ProductCategoryService) { }
